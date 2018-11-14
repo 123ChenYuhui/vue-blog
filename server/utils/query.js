@@ -4,12 +4,10 @@ import mysql from 'mysql'
 import { db,dbName } from '../config'
 import fs from 'fs'
 import path from 'path'
-let pool
 const sqlContent = fs.readFileSync(path.resolve(__dirname,'..','./sql/cyh_blog.sql'),'utf-8')
-
+let pool
 //第一次连接数据库的时候，没有指定数据库名称，这次连接的目的是为了能够创建一个lzy_blog数据库
 //并且将数据库文件执行，执行完毕后lzy_blog数据库就有对应的表和数据了
-
 const init = mysql.createConnection(db)
 init.connect()
 init.query('CREATE DATABASE cyh_blog',err=>{
