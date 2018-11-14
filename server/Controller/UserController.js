@@ -12,10 +12,8 @@ import createToken from '../utils/createToken'
 class UserController {
     //登录的处理逻辑在这里
     async login(ctx){
-        //console.log(ctx.request.body)
         let user = ctx.request.body.user
         let password = ctx.request.body.password
-        //console.log(ctx.request.body.user)
         //验证用户名/密码是否合法
         //验证省略了
         //检查用户名是否存在
@@ -46,10 +44,12 @@ class UserController {
                 message:'用户名不存在,请重新填写.....'
             }
         }
-
-
-
-
+    }
+    async logout(ctx){
+        ctx.body = {
+            success:true,
+            message:'退出成功'
+        }
     }
 }
 export default new UserController()
