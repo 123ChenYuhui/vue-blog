@@ -6,7 +6,7 @@
     <div class="content-container">
       <section>
         <h4 class="title">
-          小新博客
+          陈玉辉博客系统
         </h4>
       </section>
       <a class="log-out" @click="logout">
@@ -84,3 +84,4 @@
     }
   }
 </style>
+
