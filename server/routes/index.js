@@ -4,6 +4,8 @@ import { base_API } from "../config"
 import UserController from '../Controller/UserController'
 //引入文章相关的控制器
 import ArticleController from '../Controller/ArticleController'
+
+import ArticlesController from '../Controller/ArticlesController'
 //引入验证token合法性的方法
 import checkToken from '../utils/checkToken'
 
@@ -14,7 +16,6 @@ router.get('/',async ctx=>{
 //所有的路由都写在这里就可以了
 //前端所有的请求发过来的时候都是http://localhost:3000/api/.....
 router.prefix(`${base_API}`)
-
 //登录
 router.post('/login',UserController.login)
 //退出
@@ -33,5 +34,14 @@ router.delete('/articles/:id',checkToken,ArticleController.deleteArticle)
 //发布文章
 router.put('/articles/publish/:id',checkToken,ArticleController.publishArticle)
 
-router.put('Tag/:id',checkToken,ArticleController.updateTag)
+router.get('/tags',checkToken,ArticleController.getTags)
+
+router.post('/tags/update/:id',checkToken,ArticleController.updateTag)
+//关于我页面文章
+router.get('/about',checkToken,ArticleController.getAbout)
+//更新关于我页面文章
+router.post('/about/update/:id',checkToken,ArticleController.updateBrief)
+
+router.get('/article', ArticlesController.getArticleList)
+router.get('/article/:id', ArticlesController.getOneArticle)
 export default router

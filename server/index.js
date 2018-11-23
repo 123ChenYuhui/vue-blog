@@ -13,5 +13,5 @@ app.use(bodyParser())
 app.use(router.routes())
 
 app.listen(4000,()=>{
-    console.log('node is OK')
+    console.log('node is OK 4000')
 })

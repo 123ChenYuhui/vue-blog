@@ -9,6 +9,8 @@ import List from '@/components/List'
 //引入标签页面
 import Tag from '@/components/Tag'
 
+import About from '@/components/About'
+
 export default new Router({
   routes: [
     {
@@ -22,6 +24,10 @@ export default new Router({
     {
       path: '/tags',
       component: Tag
+    },
+    {
+      path: '/about',
+      component: About
     },
     {path:'*',redirect:'/login'}
   ]

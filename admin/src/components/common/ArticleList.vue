@@ -1,7 +1,7 @@
 <template>
     <div>
       <ul class="list">
-        <li class="article"  :class="{active: activeIndex === index, published: isPublished === 1}" v-for="{title,createTime,isPublished,isChosen},index in articleList" @click="select(index)">
+        <li class="article"  :class="{active: activeIndex === index, published: isPublished === 1}" v-for="{title,createTime,isPublished,isChosen},index in articleList" @click="select(index)" v-if="isChosen">
           <header>{{title}}</header>
           <p>{{createTime}}</p>
         </li>
@@ -60,6 +60,113 @@
         }).catch(err=>{
           console.log(err);
         })
+      },
+      updateArticleTag(oldVal, newVal, chosenTags) {
+        for (let [i, article] of this.articleList.entries()) {
+          if (article.tags.length) {
+            const tags = article.tags.split(',')
+            const index = tags.indexOf(oldVal)
+            if (index !== -1) {
+              const newIndex = tags.indexOf(newVal)
+              // 如果新值在该文章中已经有了，则直接删除旧值，否则将旧值修改为新值
+              if (newIndex === -1) {
+                tags[index] = newVal
+                article.tags = tags.join(',')
+                //console.log(article.id)
+                request({
+                  url:`/tags/update/${article.id}`,
+                  method:'post',
+                  data:{
+                    tags: article.tags
+                  }
+                }).then(res=>{
+                  //console.log(res)
+                }).catch(err => alert(err))
+              }
+              else {
+                this.deleteSpecArticleTag(oldVal, i)
+              }
+              this.updateListByTags(chosenTags)
+            }
+          }
+        }
+        this.SET_CURRENT_ARTICLE(this.articleList[this.activeIndex])
+      },
+      deleteSpecArticleTag(tag, i) {
+        const article = this.articleList[i]
+        article.tags = article.tags.split(',')
+        const index = article.tags.indexOf(tag)
+        article.tags.splice(index, 1)
+        article.tags = article.tags.join(',')
+        request({
+          url:`/tags/update/${article.id}`,
+          method:'post',
+          data:{
+            tags: article.tags
+          }
+        }).then(res=>{
+          //console.log(res)
+        }).catch(err => alert(err))
+      },
+      updateListByTags(chosenTags) {
+        if (chosenTags.length === 0) {
+          for (let article of this.articleList) {
+            article.isChosen = true
+          }
+        }
+        else {
+          console.log(this.articleList)
+          for (let article of this.articleList) {
+            let flag = false
+            for (let tag of chosenTags) {
+              if (article.tags.indexOf(tag) !== -1) {
+                flag = true
+              }
+            }
+            if (flag) {
+              article.isChosen = true
+            }
+            else {
+              article.isChosen = false
+            }
+          }
+          for (let [index, article] of this.articleList.entries()) {
+            console.log(index)
+            if (article.isChosen) {
+              this.activeIndex = index
+              this.SET_CURRENT_ARTICLE(this.articleList[this.activeIndex])
+              break
+            }
+          }
+        }
+      },
+      deleteArticleTag(tag) {
+        for (let article of this.articleList) {
+          if (article.tags.length) {
+            const tags = article.tags.split(',')
+            const index = tags.indexOf(tag)
+            if (index !== -1) {
+              if (tags.length === 1 && article.isPublished === 1) {
+                console.error('已发布文章请至少保持一个tag!')
+              }
+              else {
+                tags.splice(index, 1)
+                article.tags = tags.join(',')
+                request({
+                  url:`/tags/update/${article.id}`,
+                  method:'post',
+                  data:{
+                    tags: article.tags
+                  }
+                }).then(res=>{
+                  //console.log(res)
+                }).catch(err => alert(err))
+              }
+            }
+          }
+        }
+        // 防止更改了activeIndex的article，所以提交一个mutation
+        this.updateArticle(this.articleList[this.activeIndex])
       },
       select(index){
         this.activeIndex = index

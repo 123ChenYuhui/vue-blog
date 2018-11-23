@@ -19,8 +19,20 @@ class ArticleModel {
     async publishArticle(id){
         return await query(eacape`UPDATE ARTICLE SET publishTime=NOW(), isPublished=1 WHERE id=${id}`)
     }
-    async updateTag(id,tags){
-        return await query(escape`UPDATE ARTICLE SET tags=${tags} WHERE id=${id}`)
+    async getTags(){
+        return await query(eacape`SELECT * FROM ARTICLE`)
     }
+    async updateTag(id,tags) {
+        return await query(eacape`UPDATE ARTICLE SET tags=${tags} WHERE id=${id}`)
+    }
+    async getAbout(){
+        return await query(eacape`SELECT * FROM ABOUT`)
+    }
+    async updateBrief(id, content) {
+        return await query(eacape`UPDATE ABOUT SET content=${content} WHERE id=${id}`)
+    }
+
+//前台
+
 }
 export default new ArticleModel()
