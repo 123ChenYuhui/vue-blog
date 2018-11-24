@@ -1,16 +1,16 @@
 <template>
   <div class="container">
     <div class="article-list">
-      <article v-for="{id, title, publishTime, content} in articles" :key="id">
+      <article v-for="{id, title, publishTime, content} in articles" :key="id" class="list">
         <header>
           <h2>
             <router-link class="title" :to="'/articles/' + id">{{ title }}</router-link>
           </h2>
-          <h4 class="time">{{ publishTime }}</h4>
         </header>
         <!--<p class="abstract" v-html="parseMarkdown(content)"></p>-->
         <footer>
-          <router-link class="read-more" :to="'/articles/' + id">... continue reading</router-link>
+          <router-link class="read-more" :to="'/articles/' + id">文章详情....</router-link>
+          <h4 class="time">{{ publishTime }}</h4>
         </footer>
       </article>
     </div>
@@ -44,12 +44,12 @@
     },
     created() {
       this.offset = this.$route.query.page * 5
-      console.log(this.offset)
+      //console.log(this.offset)
       request({
         url:`/article?isPublished=1&offset=${this.offset}&limit=5`,
         method:'get'
       }).then(res => {
-        console.log(res.articles)
+        //console.log(res.articles)
           for (let article of res.articles) {
             article.publishTime = moment(article.publishTime).format('YYYY年 MMM DD日 HH:mm:ss')
             article.content = RegExp['$`']
@@ -79,7 +79,7 @@
           url:`/article?isPublished=1&offset=${this.offset}&limit=5`,
           method:'get'
         }).then(res => {
-          console.log(res)
+          //console.log(res)
           //const pattern = /[\u4e00-\u9fa5]/
             for (let article of res.articles) {
               article.publishTime = moment(article.publishTime).format('YYYY年 MMM DD日 HH:mm:ss')
@@ -102,7 +102,12 @@
     border-bottom: none;
     padding: 0;
   }
+  .list{
+    background-color: rgba(0,0,0,.2);
+    padding-left: 15px;
+  }
   .container{
+    position: relative;
     max-width: 850px;
     margin: 0 auto;
   }
@@ -115,8 +120,14 @@
     border-bottom: 2px solid $base;
   }
 
+  .time{
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
   .read-more {
-    color: $base;
+    color: #ffff00;
+    font-size: 1.6em;
   }
 
   .pagination {

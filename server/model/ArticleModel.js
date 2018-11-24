@@ -32,7 +32,17 @@ class ArticleModel {
         return await query(eacape`UPDATE ABOUT SET content=${content} WHERE id=${id}`)
     }
 
-//前台
-
+    async getAllBooks() {
+        return await query(`SELECT * FROM RD_LIST`)
+    }
+    async addBook({name, author, score}) {
+        return await query(eacape`INSERT INTO RD_LIST SET name=${name},author=${author},score=${score}`)
+    }
+    async updateBook(id, {name, author, score}) {
+        return await query(eacape`UPDATE RD_LIST SET name=${name},author=${author},score=${score} WHERE id=${id}`)
+    }
+    async deleteBook(id) {
+        return await query(eacape`DELETE FROM RD_LIST WHERE id=${id}`)
+    }
 }
 export default new ArticleModel()

@@ -105,7 +105,7 @@
             tags: article.tags
           }
         }).then(res=>{
-          //console.log(res)
+          console.log(res)
         }).catch(err => alert(err))
       },
       updateListByTags(chosenTags) {
@@ -159,7 +159,7 @@
                     tags: article.tags
                   }
                 }).then(res=>{
-                  //console.log(res)
+                  console.log(res)
                 }).catch(err => alert(err))
               }
             }

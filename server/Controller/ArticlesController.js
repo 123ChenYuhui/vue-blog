@@ -27,5 +27,17 @@ class ArticlesController {
         }
         ctx.body = res
     }
+
+    async getIntroductions(ctx) {
+        ctx.body =  await Articles.getIntroductions()
+    }
+
+    async getBookList(ctx) {
+        ctx.body = await Articles.getAllBooks()
+    }
+
+    async getBrief(ctx) {
+        ctx.body = await Articles.getBrief()
+    }
 }
 export default new ArticlesController()

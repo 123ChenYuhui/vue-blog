@@ -41,7 +41,22 @@ router.post('/tags/update/:id',checkToken,ArticleController.updateTag)
 router.get('/about',checkToken,ArticleController.getAbout)
 //更新关于我页面文章
 router.post('/about/update/:id',checkToken,ArticleController.updateBrief)
+//编辑阅读页面
+router.get('/books', ArticleController.getBookList)
+router.post('/books', checkToken, ArticleController.addBook)
+router.put('/books/:id', checkToken, ArticleController.editBook)
+router.delete('books/:id', checkToken, ArticleController.deleteBook)
 
+//开始前台逻辑
+//前台获取文章
 router.get('/article', ArticlesController.getArticleList)
+
 router.get('/article/:id', ArticlesController.getOneArticle)
+
+router.get('/introductions',ArticlesController.getIntroductions)
+
+router.get('/book', ArticlesController.getBookList)
+
+router.get('/briefs', ArticlesController.getBrief)
+
 export default router

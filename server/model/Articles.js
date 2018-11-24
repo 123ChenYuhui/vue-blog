@@ -8,5 +8,21 @@ class Articles {
     async getPagination() {
         return await query(`SELECT COUNT(*) FROM ARTICLE WHERE isPublished=1`)
     }
+
+    async getOneArticle(id) {
+        return await query(`SELECT * FROM ARTICLE WHERE id=${id}`)
+    }
+
+    async getIntroductions() {
+        return await query(`SELECT id,title,tags,publishTime FROM ARTICLE where isPublished=1 ORDER BY publishTime DESC`)
+    }
+
+    async getAllBooks() {
+        return await query(`SELECT * FROM RD_LIST`)
+    }
+
+    async getBrief() {
+        return await query(`SELECT * FROM ABOUT`)
+    }
 }
 export default new Articles()

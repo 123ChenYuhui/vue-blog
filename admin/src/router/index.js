@@ -9,6 +9,8 @@ import List from '@/components/List'
 //引入标签页面
 import Tag from '@/components/Tag'
 
+import ReadingList from '@/components/ReadingList'
+
 import About from '@/components/About'
 
 export default new Router({
@@ -24,6 +26,10 @@ export default new Router({
     {
       path: '/tags',
       component: Tag
+    },
+    {
+      path: '/readinglists',
+      component: ReadingList
     },
     {
       path: '/about',

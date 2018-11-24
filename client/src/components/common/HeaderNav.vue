@@ -3,7 +3,7 @@
     <nav class="site-nav">
       <router-link :to="{path: '/articles', query: {page: 0}}" class="nav-title">
         <img class="logo" src="../../assets/image/logo.png" alt="营火">
-        <span class="title">Ashen One</span>
+        <span class="title" style="color: #fff">仰望星空</span>
       </router-link>
       <ul class="site-nav-list">
         <li>
@@ -35,13 +35,13 @@
             <a name="articles" @click="jump($event)" :class="{'active': $route.path === '/articles'}">文章</a>
           </li>
           <li>
-            <a name="archives" @click="jump($event)" :class="{'active': $route.path === '/archives'}">归档</a>
+            <a name="archives" @click="jump($event)" :class="{'active': $route.path === '/archive'}">归档</a>
           </li>
           <li>
             <a name="tags" @click="jump($event)" :class="{'active': $route.path === '/tags'}">标签</a>
           </li>
           <li>
-            <a name="lists" @click="jump($event)" :class="{'active': $route.path === '/lists'}">阅读列表</a>
+            <a name="lists" @click="jump($event)" :class="{'active': $route.path === '/read'}">阅读列表</a>
           </li>
           <li>
             <a name="about" @click="jump($event)" :class="{'active': $route.path === '/about'}">关于我</a>
@@ -76,13 +76,13 @@
             this.$router.push({path: `/${path}`, query: {page: 0}})
             break
           case 'archives':
-            this.$router.push('/archives')
+            this.$router.push('/archive')
             break
           case 'tags':
             this.$router.push('/tags')
             break
           case 'lists':
-            this.$router.push('/lists')
+            this.$router.push('/read')
             break
           case 'about':
             this.$router.push('/about')
@@ -103,7 +103,7 @@
 <style lang="scss" scoped>
   @import '../../assets/style/variable';
   .nav-container {
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
   }
   .site-nav {
     position: relative;
@@ -115,7 +115,6 @@
     width: 95%;
     max-width: 850px;
     font-size: 1.6rem;
-    background: $white;
     .site-nav-list {
       @include flex;
     }
@@ -157,8 +156,7 @@
     width: 235px;
     font-size: 1.6rem;
     padding: 4.5em 1.5em 4em 1.5em;
-    background: #f9f9f9;
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.8);
     .mask-nav-list {
       li {
         font-size: 1.4rem;
@@ -196,7 +194,7 @@
       right: 0;
       width: 100%;
       padding: 0.5em;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
       .site-nav-list {
         display: none;
       }
